@@ -28,7 +28,11 @@ public class FlightController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Flight> getFlightById(@PathVariable Long id){
         Flight flight = flightService.findFlight(id);
+        if (flight != null) {
         return new ResponseEntity<>(flight, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     // Add details of a new flight - CREATE/POST:
