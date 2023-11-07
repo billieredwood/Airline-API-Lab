@@ -1,7 +1,11 @@
 package com.example.airline_api.controllers;
 
 import com.example.airline_api.models.Flight;
+import com.example.airline_api.services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +15,9 @@ import java.util.List;
 @RequestMapping("/flights")
 public class FlightController {
 
+    @Autowired
+    FlightService flightService;
+
     // Display all available flights - READ/GET:
     @GetMapping
     public ResponseEntity<List<Flight>> getAllFlights(){
@@ -19,8 +26,9 @@ public class FlightController {
 
     // Display a specific flight - READ/GET:
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Flight> getFlightById(){
-        return null;
+    public ResponseEntity<Flight> getFlightById(@PathVariable Long id){
+        Flight flight = flightService.findFlight(id);
+        return new ResponseEntity<>(flight, HttpStatus.OK);
     }
 
     // Add details of a new flight - CREATE/POST:

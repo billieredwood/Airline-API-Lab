@@ -1,6 +1,7 @@
 package com.example.airline_api.components;
 
 import com.example.airline_api.models.Flight;
+import com.example.airline_api.models.Passenger;
 import com.example.airline_api.repositories.FlightRepository;
 import com.example.airline_api.repositories.PassengerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,18 +24,15 @@ public class DataLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        //Add details of a new flight
+        //CREATE/POST - method to add details of a new flight:
         Flight flight1 = new Flight("Dublin, Ireland", 120, "10/12/2023", "06:00");
         flightRepository.save(flight1);
 
-        //Display all available flights
+        //Display all available flights is in FlightService
+        //Display details of a specific flight is in FlightService
 
+        //CREATE/POST - method to add a new passenger:
 
-
-        //Display details of a specific flight
-
-
-        //Add a new passenger
 
 
         //Display details of all passengers
