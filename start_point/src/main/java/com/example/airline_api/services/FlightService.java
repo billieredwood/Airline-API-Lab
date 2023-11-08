@@ -5,6 +5,7 @@ import com.example.airline_api.models.Flight;
 import com.example.airline_api.models.Passenger;
 import com.example.airline_api.repositories.FlightRepository;
 import com.example.airline_api.repositories.PassengerRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,13 +35,24 @@ public class FlightService {
         return flightRepository.findById(id).get();
     }
 
+    @Transactional
     public Flight bookPassengerToFlight(BookingDTO bookingDTO, Long id){
-        Flight flight = flightRepository.findById(id).get();  //flight that is equal to the flight found
-        Passenger passenger = passengerRepository.findById(bookingDTO.getPassengerId()).get();
-        flight.addPassenger(passenger);
+        Flight flight = flightRepository.findFlightById(id);    //flight that is equal to the flight found
+        Passenger passenger = passengerRepository.findPassengerById(bookingDTO.getPassengerId());
+        passenger.addFlight(flight);
+        passengerRepository.save(passenger);
         return flight;
     }
 
     //CREATE/POST -
+
+    @Transactional
+    public void cancelFlight(Long id){
+        Flight flight = flightRepository.findById(id).get();
+        for (Passenger passenger : flight.getPassengers() ){      //for every passenger in flight.getpassenger) {
+          passenger.removeFlight(flight);
+        }
+        flightRepository.deleteById(id);
+    }
 
 }

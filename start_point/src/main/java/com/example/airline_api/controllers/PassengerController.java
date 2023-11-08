@@ -4,6 +4,7 @@ import com.example.airline_api.models.Flight;
 import com.example.airline_api.models.Passenger;
 import com.example.airline_api.repositories.PassengerRepository;
 import com.example.airline_api.services.PassengerService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +46,6 @@ public class PassengerController {
         Passenger newPassenger = passengerService.addPassenger(passenger);
         return new ResponseEntity<>(newPassenger, HttpStatus.CREATED);
     }       //functional in postman via a GET request using passengers. passengers added and assigned to specific flights too: confirmed.
-
 
 
 
