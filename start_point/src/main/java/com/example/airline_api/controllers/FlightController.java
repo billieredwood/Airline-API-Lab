@@ -1,6 +1,8 @@
 package com.example.airline_api.controllers;
 
+import com.example.airline_api.models.BookingDTO;
 import com.example.airline_api.models.Flight;
+import com.example.airline_api.repositories.FlightRepository;
 import com.example.airline_api.services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -18,10 +20,14 @@ public class FlightController {
     @Autowired
     FlightService flightService;
 
+    @Autowired
+    FlightRepository flightRepository;
+
+
     // Display all available flights - READ/GET:
     @GetMapping
     public ResponseEntity<List<Flight>> getAllFlights(){
-        return null;
+        return new ResponseEntity<>(flightRepository.findAll(), HttpStatus.OK);
     }
 
     // Display a specific flight - READ/GET:
@@ -37,14 +43,15 @@ public class FlightController {
 
     // Add details of a new flight - CREATE/POST:
     @PostMapping
-    public ResponseEntity<Flight> addNewFlight(){
-        return null;
+    public ResponseEntity<List<Flight>> addNewFlight(@RequestBody Flight flight){
+        flightRepository.save(flight);
+        return new ResponseEntity<>(flightRepository.findAll(), HttpStatus.CREATED);
     }
 
-    // Book passenger on a flight
+    // Book passenger on a flight - modify/update:
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<Flight> addPassengerToFlight(){
-        return null;
+    public ResponseEntity<Flight> bookPassengerToFlight(@RequestBody BookingDTO bookingDTO, @PathVariable Long id){
+        return new ResponseEntity<>(flightService.bookPassengerToFlight(bookingDTO, id), HttpStatus.OK);
     }
 
     // Cancel flight

@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-// this class adds the data to the table; hence the name data loader.
+//class that seeds the database with some flights and passengers.
+//this class adds the data to the table; hence the name data loader.
 @Component      //to load the information into the table.
 public class DataLoader implements ApplicationRunner {
 

@@ -21,7 +21,7 @@ public class Passenger {
 
     @ManyToMany
     @JoinTable(
-            name = "passengers_flights",
+            name = "bookings",
             joinColumns = @JoinColumn(name = "passenger_id"),
             inverseJoinColumns = @JoinColumn(name = "flight_id")
     )
@@ -70,5 +70,7 @@ public class Passenger {
     }
 
     public void addFlight(Flight flight){ this.flights.add(flight);}
+
+
 
 }

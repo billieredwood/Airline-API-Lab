@@ -6,8 +6,10 @@ import com.example.airline_api.repositories.PassengerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class PassengerService {
+public class PassengerService {         //BUSINESS LOGIC CLASS to route methods:
     @Autowired
     FlightRepository flightRepository;
 
@@ -15,8 +17,21 @@ public class PassengerService {
     PassengerRepository passengerRepository;
 
     //CREATE/POST - method to add a new passenger:
-    public Passenger addPassenger(Passenger passenger){
+    public Passenger addPassenger (Passenger passenger){
         return passengerRepository.save(passenger);
     }
+
+    //READ/GET - method to display specific passenger details:
+    public Passenger findPassenger (Long id) {
+        return passengerRepository.findById(id).get();
+    }
+
+    //READ/GET - method to display all passengers:
+    public List<Passenger> getAllPassengers (Long id) {
+        return passengerRepository.findAll();
+    }
+
+
+
 
 }
